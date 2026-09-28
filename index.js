@@ -13,3 +13,6 @@ export {
   addDocument, updateDocument, deleteDocument,
   addBackgroundFolder, updateBackgroundFolder, deleteBackgroundFolder
 } from './src/documents.js';
+export { addFrontMatter, updateFrontMatter, deleteFrontMatter, toggleFrontMatter, reorderFrontMatter } from './src/frontMatter.js';
+export { addBackMatter, updateBackMatter, deleteBackMatter, toggleBackMatter, reorderBackMatter } from './src/backMatter.js';
+export { addIllustration, updateIllustration, deleteIllustration } from './src/illustrations.js';
