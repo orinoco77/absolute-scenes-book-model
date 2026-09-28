@@ -5,3 +5,7 @@ export { updateScene, addScene, deleteScene, moveSceneBetweenChapters, reorderSc
 export { addChapter, updateChapter, deleteChapter, reorderChapters } from './src/chapters.js';
 export { addCharacter, updateCharacter, deleteCharacter } from './src/characters.js';
 export { addLocation, updateLocation, deleteLocation } from './src/locations.js';
+export {
+  addPart, updatePart, deletePart, reorderParts,
+  moveChapterToPart, addChapterToPart, removeChapterFromPart, reorderChaptersInPart
+} from './src/parts.js';
