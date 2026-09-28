@@ -93,4 +93,8 @@ describe('reorderScenesInChapter', () => {
   test('throws when toIndex is out of range', () => {
     expect(() => reorderScenesInChapter(baseBook(), 'ch1', 0, 5)).toThrow('toIndex out of range: 5');
   });
+
+  test('throws when fromIndex is not an integer', () => {
+    expect(() => reorderScenesInChapter(baseBook(), 'ch1', undefined, 1)).toThrow('fromIndex out of range: undefined');
+  });
 });

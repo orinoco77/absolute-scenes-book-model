@@ -128,6 +128,6 @@ describe('deleteDraft', () => {
   });
 
   test('throws when the draft does not exist', () => {
-    expect(() => deleteDraft(baseBook(), 'missing')).toThrow('Draft not found');
+    expect(() => deleteDraft(baseBook(), 'missing')).toThrow(/^Draft not found$/);
   });
 });

@@ -51,4 +51,8 @@ describe('reorderChapters', () => {
   test('throws when toIndex is out of range', () => {
     expect(() => reorderChapters(baseBook(), 0, 5)).toThrow('toIndex out of range: 5');
   });
+
+  test('throws when fromIndex is not an integer', () => {
+    expect(() => reorderChapters(baseBook(), undefined, 1)).toThrow('fromIndex out of range: undefined');
+  });
 });

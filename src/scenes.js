@@ -1,5 +1,6 @@
 import { newId, now } from './ids.js';
 import { normalizeContent } from './normalizeContent.js';
+import { requireValidIndex } from './indexRange.js';
 
 const findScene = (book, sceneId) => {
   for (const chapter of book.chapters) {
@@ -99,12 +100,8 @@ export const moveSceneBetweenChapters = (book, sceneId, fromChapterId, toChapter
 
 export const reorderScenesInChapter = (book, chapterId, fromIndex, toIndex) => {
   const chapter = findChapter(book, chapterId);
-  if (fromIndex < 0 || fromIndex >= chapter.scenes.length) {
-    throw new Error(`fromIndex out of range: ${fromIndex}`);
-  }
-  if (toIndex < 0 || toIndex >= chapter.scenes.length) {
-    throw new Error(`toIndex out of range: ${toIndex}`);
-  }
+  requireValidIndex(fromIndex, chapter.scenes.length, 'fromIndex');
+  requireValidIndex(toIndex, chapter.scenes.length, 'toIndex');
 
   return {
     ...book,

@@ -1,4 +1,5 @@
 import { now } from './ids.js';
+import { requireValidIndex } from './indexRange.js';
 
 export const addBackMatter = (book, backMatterItem) => ({
   ...book,
@@ -41,8 +42,8 @@ export const toggleBackMatter = (book, backMatterId, enabled) => {
 
 export const reorderBackMatter = (book, fromIndex, toIndex) => {
   const backMatter = [...(book.backMatter || [])];
-  if (fromIndex < 0 || fromIndex >= backMatter.length) throw new Error(`fromIndex out of range: ${fromIndex}`);
-  if (toIndex < 0 || toIndex >= backMatter.length) throw new Error(`toIndex out of range: ${toIndex}`);
+  requireValidIndex(fromIndex, backMatter.length, 'fromIndex');
+  requireValidIndex(toIndex, backMatter.length, 'toIndex');
   const [movedItem] = backMatter.splice(fromIndex, 1);
   backMatter.splice(toIndex, 0, movedItem);
   return { ...book, backMatter, metadata: { ...book.metadata, modified: now() } };

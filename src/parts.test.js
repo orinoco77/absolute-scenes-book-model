@@ -49,6 +49,10 @@ describe('reorderParts', () => {
   test('throws when toIndex is out of range', () => {
     expect(() => reorderParts(baseBook(), 0, 5)).toThrow('toIndex out of range: 5');
   });
+
+  test('throws when fromIndex is not an integer', () => {
+    expect(() => reorderParts(baseBook(), undefined, 1)).toThrow('fromIndex out of range: undefined');
+  });
 });
 
 describe('moveChapterToPart', () => {
@@ -66,6 +70,12 @@ describe('moveChapterToPart', () => {
 
   test('throws when the source part does not exist', () => {
     expect(() => moveChapterToPart(baseBook(), 'ch1', 'missing', 'p2')).toThrow('Part not found: missing');
+  });
+
+  test('moving within the same part relocates the chapter to the end', () => {
+    const book = { ...baseBook(), parts: [{ id: 'p1', title: 'Part 1', chapterIds: ['ch1', 'ch2', 'ch3'] }] };
+    const result = moveChapterToPart(book, 'ch1', 'p1', 'p1');
+    expect(result.parts.find(p => p.id === 'p1').chapterIds).toEqual(['ch2', 'ch3', 'ch1']);
   });
 });
 
@@ -104,5 +114,10 @@ describe('reorderChaptersInPart', () => {
 
   test('throws when toIndex is out of range', () => {
     expect(() => reorderChaptersInPart(baseBook(), 'p1', 0, 5)).toThrow('toIndex out of range: 5');
+  });
+
+  test('throws when fromIndex is not an integer', () => {
+    const book = { ...baseBook(), parts: [{ id: 'p1', title: 'Part 1', chapterIds: ['ch1', 'ch2', 'ch3'] }] };
+    expect(() => reorderChaptersInPart(book, 'p1', undefined, 1)).toThrow('fromIndex out of range: undefined');
   });
 });

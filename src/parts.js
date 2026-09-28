@@ -1,4 +1,5 @@
 import { newId, now } from './ids.js';
+import { requireValidIndex } from './indexRange.js';
 
 const findPart = (book, partId) => {
   const part = book.parts.find(p => p.id === partId);
@@ -34,29 +35,31 @@ export const deletePart = (book, partId) => {
 };
 
 export const reorderParts = (book, fromIndex, toIndex) => {
-  if (fromIndex < 0 || fromIndex >= book.parts.length) throw new Error(`fromIndex out of range: ${fromIndex}`);
-  if (toIndex < 0 || toIndex >= book.parts.length) throw new Error(`toIndex out of range: ${toIndex}`);
+  requireValidIndex(fromIndex, book.parts.length, 'fromIndex');
+  requireValidIndex(toIndex, book.parts.length, 'toIndex');
   const parts = [...book.parts];
   const [movedPart] = parts.splice(fromIndex, 1);
   parts.splice(toIndex, 0, movedPart);
   return { ...book, parts, metadata: { ...book.metadata, modified: now() } };
 };
 
+// Two-pass (remove, then add) so that fromPartId === toPartId correctly
+// relocates the chapter to the end of that part, instead of losing it to an
+// early return inside a single .map() callback.
 export const moveChapterToPart = (book, chapterId, fromPartId, toPartId) => {
   findPart(book, fromPartId);
   findPart(book, toPartId);
-  const parts = book.parts.map(part => {
-    if (part.id === fromPartId) {
-      return { ...part, chapterIds: part.chapterIds.filter(id => id !== chapterId) };
-    }
-    if (part.id === toPartId) {
-      return part.chapterIds.includes(chapterId)
-        ? part
-        : { ...part, chapterIds: [...part.chapterIds, chapterId] };
-    }
-    return part;
-  });
-  return { ...book, parts, metadata: { ...book.metadata, modified: now() } };
+
+  const withChapterRemoved = book.parts.map(part =>
+    part.id === fromPartId ? { ...part, chapterIds: part.chapterIds.filter(id => id !== chapterId) } : part
+  );
+  const withChapterAdded = withChapterRemoved.map(part =>
+    part.id === toPartId
+      ? { ...part, chapterIds: part.chapterIds.includes(chapterId) ? part.chapterIds : [...part.chapterIds, chapterId] }
+      : part
+  );
+
+  return { ...book, parts: withChapterAdded, metadata: { ...book.metadata, modified: now() } };
 };
 
 export const addChapterToPart = (book, chapterId, toPartId) => {
@@ -80,8 +83,8 @@ export const removeChapterFromPart = (book, chapterId, fromPartId) => {
 
 export const reorderChaptersInPart = (book, partId, fromIndex, toIndex) => {
   const part = findPart(book, partId);
-  if (fromIndex < 0 || fromIndex >= part.chapterIds.length) throw new Error(`fromIndex out of range: ${fromIndex}`);
-  if (toIndex < 0 || toIndex >= part.chapterIds.length) throw new Error(`toIndex out of range: ${toIndex}`);
+  requireValidIndex(fromIndex, part.chapterIds.length, 'fromIndex');
+  requireValidIndex(toIndex, part.chapterIds.length, 'toIndex');
   const parts = book.parts.map(p => {
     if (p.id !== partId) return p;
     const chapterIds = [...p.chapterIds];

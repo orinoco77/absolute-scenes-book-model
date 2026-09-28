@@ -51,7 +51,7 @@ const cloneTree = (chapters, parts, includeText) => {
   return { chapters: newChapters, parts: newParts };
 };
 
-export const createDraft = (book, { name, mode }) => {
+export const createDraft = (book, { name, mode } = {}) => {
   const active = getActiveDraft(book);
   const trimmed = (name || '').trim();
   const draftName = trimmed || `Draft ${listDrafts(book).length + 1}`;

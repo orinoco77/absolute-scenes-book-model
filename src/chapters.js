@@ -1,4 +1,5 @@
 import { newId, now } from './ids.js';
+import { requireValidIndex } from './indexRange.js';
 
 export const addChapter = book => {
   const newChapter = {
@@ -42,12 +43,8 @@ export const deleteChapter = (book, chapterId) => {
 };
 
 export const reorderChapters = (book, fromIndex, toIndex) => {
-  if (fromIndex < 0 || fromIndex >= book.chapters.length) {
-    throw new Error(`fromIndex out of range: ${fromIndex}`);
-  }
-  if (toIndex < 0 || toIndex >= book.chapters.length) {
-    throw new Error(`toIndex out of range: ${toIndex}`);
-  }
+  requireValidIndex(fromIndex, book.chapters.length, 'fromIndex');
+  requireValidIndex(toIndex, book.chapters.length, 'toIndex');
   const chapters = [...book.chapters];
   const [movedChapter] = chapters.splice(fromIndex, 1);
   chapters.splice(toIndex, 0, movedChapter);

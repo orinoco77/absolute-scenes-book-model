@@ -58,4 +58,8 @@ describe('reorderBackMatter', () => {
   test('throws when toIndex is out of range', () => {
     expect(() => reorderBackMatter(baseBook(), 0, 5)).toThrow('toIndex out of range: 5');
   });
+
+  test('throws when fromIndex is not an integer', () => {
+    expect(() => reorderBackMatter(baseBook(), undefined, 1)).toThrow('fromIndex out of range: undefined');
+  });
 });

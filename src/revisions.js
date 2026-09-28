@@ -19,7 +19,7 @@ export const getRevisionInfo = scene => {
   };
 };
 
-export const createRevision = (scene, { label, mode, activate = true }) => {
+export const createRevision = (scene, { label, mode, activate = true } = {}) => {
   const s = ensureActive(scene);
   const total = (s.revisions || []).length + 1;
   const text = mode === 'copy' ? s.content || '' : '';

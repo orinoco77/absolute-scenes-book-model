@@ -1,4 +1,5 @@
 import { now } from './ids.js';
+import { requireValidIndex } from './indexRange.js';
 
 export const addFrontMatter = (book, frontMatterItem) => ({
   ...book,
@@ -40,8 +41,8 @@ export const toggleFrontMatter = (book, frontMatterId, enabled) => {
 };
 
 export const reorderFrontMatter = (book, fromIndex, toIndex) => {
-  if (fromIndex < 0 || fromIndex >= book.frontMatter.length) throw new Error(`fromIndex out of range: ${fromIndex}`);
-  if (toIndex < 0 || toIndex >= book.frontMatter.length) throw new Error(`toIndex out of range: ${toIndex}`);
+  requireValidIndex(fromIndex, book.frontMatter.length, 'fromIndex');
+  requireValidIndex(toIndex, book.frontMatter.length, 'toIndex');
   const frontMatter = [...book.frontMatter];
   const [movedItem] = frontMatter.splice(fromIndex, 1);
   frontMatter.splice(toIndex, 0, movedItem);

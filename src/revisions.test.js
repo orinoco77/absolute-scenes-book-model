@@ -93,6 +93,6 @@ describe('deleteRevision', () => {
   });
 
   test('throws when the revision does not exist', () => {
-    expect(() => deleteRevision(baseScene(), 'missing')).toThrow('Revision not found');
+    expect(() => deleteRevision(baseScene(), 'missing')).toThrow(/^Revision not found$/);
   });
 });
