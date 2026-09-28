@@ -16,3 +16,7 @@ export {
 export { addFrontMatter, updateFrontMatter, deleteFrontMatter, toggleFrontMatter, reorderFrontMatter } from './src/frontMatter.js';
 export { addBackMatter, updateBackMatter, deleteBackMatter, toggleBackMatter, reorderBackMatter } from './src/backMatter.js';
 export { addIllustration, updateIllustration, deleteIllustration } from './src/illustrations.js';
+export {
+  getCurrentScene, getCurrentCharacter, getCurrentDocument,
+  getCurrentLocation, getCurrentFrontMatter, getCurrentBackMatter, getCurrentIllustration
+} from './src/queries.js';
