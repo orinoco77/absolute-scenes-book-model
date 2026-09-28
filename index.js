@@ -1,5 +1,10 @@
-// Public API — each export is added by the task that implements it.
-
+// Public API — pure book-editing functions shared by absolute-scenes,
+// absolute-scenes-mobile and absolute-scenes-mcp. Every export other than
+// the queries, drafts/revisions, and recovery functions is
+// (book, ...args) => newBook.
+export { newId } from './src/ids.js';
+export { normalizeContent } from './src/normalizeContent.js';
+export { createDefaultBook, recoverBook } from './src/recovery.js';
 export { updateBookMetadata, updateTemplate, updateGitHubSettings, updateGitHubSyncStatus } from './src/bookMetadata.js';
 export { updateScene, addScene, deleteScene, moveSceneBetweenChapters, reorderScenesInChapter } from './src/scenes.js';
 export { addChapter, updateChapter, deleteChapter, reorderChapters } from './src/chapters.js';
@@ -20,6 +25,5 @@ export {
   getCurrentScene, getCurrentCharacter, getCurrentDocument,
   getCurrentLocation, getCurrentFrontMatter, getCurrentBackMatter, getCurrentIllustration
 } from './src/queries.js';
-export { createDefaultBook, recoverBook } from './src/recovery.js';
 export { getActiveDraft, listDrafts, getExportBook, createDraft, switchDraft, renameDraft, deleteDraft } from './src/drafts.js';
 export { getRevisionInfo, createRevision, switchRevision, renameRevision, deleteRevision } from './src/revisions.js';
