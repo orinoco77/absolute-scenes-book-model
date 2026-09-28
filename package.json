@@ -1,0 +1,13 @@
+{
+  "name": "@absolute-scenes/book-model",
+  "version": "0.1.0",
+  "description": "Pure book-editing operations shared by absolute-scenes, absolute-scenes-mobile and absolute-scenes-mcp",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "node --experimental-vm-modules node_modules/.bin/jest --passWithNoTests"
+  },
+  "devDependencies": {
+    "jest": "^30.2.0"
+  }
+}
