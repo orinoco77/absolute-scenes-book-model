@@ -21,3 +21,4 @@ export {
   getCurrentLocation, getCurrentFrontMatter, getCurrentBackMatter, getCurrentIllustration
 } from './src/queries.js';
 export { createDefaultBook, recoverBook } from './src/recovery.js';
+export { getActiveDraft, listDrafts, getExportBook, createDraft, switchDraft, renameDraft, deleteDraft } from './src/drafts.js';
