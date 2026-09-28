@@ -9,3 +9,7 @@ export {
   addPart, updatePart, deletePart, reorderParts,
   moveChapterToPart, addChapterToPart, removeChapterFromPart, reorderChaptersInPart
 } from './src/parts.js';
+export {
+  addDocument, updateDocument, deleteDocument,
+  addBackgroundFolder, updateBackgroundFolder, deleteBackgroundFolder
+} from './src/documents.js';
