@@ -22,3 +22,4 @@ export {
 } from './src/queries.js';
 export { createDefaultBook, recoverBook } from './src/recovery.js';
 export { getActiveDraft, listDrafts, getExportBook, createDraft, switchDraft, renameDraft, deleteDraft } from './src/drafts.js';
+export { getRevisionInfo, createRevision, switchRevision, renameRevision, deleteRevision } from './src/revisions.js';
