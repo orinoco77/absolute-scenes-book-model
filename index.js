@@ -20,3 +20,4 @@ export {
   getCurrentScene, getCurrentCharacter, getCurrentDocument,
   getCurrentLocation, getCurrentFrontMatter, getCurrentBackMatter, getCurrentIllustration
 } from './src/queries.js';
+export { createDefaultBook, recoverBook } from './src/recovery.js';
